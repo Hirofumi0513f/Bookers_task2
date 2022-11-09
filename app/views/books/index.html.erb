@@ -6,8 +6,9 @@
 <p>Body</p>
 <span><%= book.body %><span>
 
-<a href="/books/:id">Show</a>
-<a href="/books/:id/edit">Edit</a>
-<a href="/books/:id">Destroy</a>
+
+<%= link_to "Show",book_path(book.id) %>
+<%= link_to "Edit",edit_book_path(book.id)%>
+<%= link_to "Destroy",book_path(book.id),method: :delete,"data-confirm"=>"本当に削除しますか？"%>
 
 <% end %>
