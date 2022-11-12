@@ -1,14 +1,48 @@
-<h1><strong>Books</strong></h1>
-<% @books.each do |book| %>
-<p>Title</p>
-<span><%= book.title %><span>
+<h1>Books</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Body</th>
+            <th colspan="3"></th>
+        </tr>
+    </thead>
 
-<p>Body</p>
-<span><%= book.body %><span>
+    <tbody>
+        <% @books.each do |book| %>
+        <th><%= book.title %></th>
+        <th><%= book.body %></th>
+        <td><%= link_to "Show",book_path(book.id) %></td>
+        <td><%= link_to "Edit",edit_book_path(book.id)%></td>
+        <td><%= link_to "Destroy",book_path(book.id),method: :delete,"data-confirm"=>"本当に削除しますか？"%></td>
+        <<% end %>
+    </tbody>
+</table>
 
 
-<%= link_to "Show",book_path(book.id) %>
-<%= link_to "Edit",edit_book_path(book.id)%>
-<%= link_to "Destroy",book_path(book.id),method: :delete,"data-confirm"=>"本当に削除しますか？"%>
 
+<h2>New Book</h2>
+<% if @book.errors.any? %>
+    <%= @book.errors.count %>errors was happened.
+    <ul>
+        <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<%= form_with model:@book do |f|%>
+  <div>
+     <div>Title</div>
+     <%= f.text_field :title %>
+  </div>
+
+  <div>
+      <div>Body</div>
+      <%= f.text_area :body %>
+  </div>
+
+  <p>
+   <%= f.submit 'Create Book' %>
+  </p>
 <% end %>
